@@ -3,29 +3,29 @@ const AutoIncrement = require('mongoose-sequence')(mongoose)
 
 const baseOptions = {
   timestamps: true,
-  discriminatorKey: 'categoryType', // our discriminator key, could be anything
-  collection: 'productCategory', // the name of our collection
+  // discriminatorKey: 'categoryType', // our discriminator key, could be anything
+  // collection: 'productCategory', // the name of our collection
   toJSON: { virtuals: true },
   toObject: { virtuals: true }
 }
 
 const schema = new mongoose.Schema(
   {
-    mainCategory: {
+    name: {
       type: String,
       trim: true,
-      lowercase: true
-      // require: true
+      lowercase: true,
+      require: true,
+      unique: true
     },
-    subCategory: {
+    parent: {
       type: String,
       trim: true,
-      lowercase: true
+      lowercase: true,
+      default: null,
+      ref: 'Category'
     },
     category_seq: {
-      type: Number
-    },
-    subCategory_seq: {
       type: Number
     }
   },
@@ -33,18 +33,9 @@ const schema = new mongoose.Schema(
 )
 
 schema.plugin(AutoIncrement, {
-  id: 'counter_category_id',
+  id: 'category_counter',
   inc_field: 'category_seq',
-  referance_fields: ['mainCategory', 'subCategory']
+  reference_fields: ['parent']
 })
-schema.index(
-  {
-    mainCategory: 1,
-    subCategory: 1
-  },
-  {
-    unique: true
-  }
-)
 
-module.exports = mongoose.model('CategoryBase', schema)
+module.exports = mongoose.model('Category', schema)
