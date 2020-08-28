@@ -1,6 +1,5 @@
 const express = require('express')
 
-// const categoryDiscreminator = require('../controllers/Category/categoryController')
 const categoryDiscreminator = require('../controllers/Category/categoryController')
 
 const router = express.Router()
