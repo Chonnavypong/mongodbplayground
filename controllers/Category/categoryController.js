@@ -22,7 +22,25 @@ exports.createOne = async (req, res, next) => {
       status: 'success',
       doc
     })
-    // console.log(req.body)
+  } catch (error) {
+    res.json({
+      status: 'error',
+      code: error.code,
+      message: error.message
+    })
+  }
+}
+
+exports.findOne = async (req, res, next) => {
+  try {
+    const doc = await CategoryModel.findById(req.params.id).populate({
+      path: 'parent'
+    })
+    console.log(doc)
+    res.status(201).json({
+      status: 'success',
+      doc
+    })
   } catch (error) {
     res.json({
       status: 'error',

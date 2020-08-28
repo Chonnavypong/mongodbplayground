@@ -19,6 +19,7 @@ const schema = new mongoose.Schema(
       unique: true
     },
     parent: {
+      // type: mongoose.Schema.ObjectId,
       type: String,
       trim: true,
       lowercase: true,
