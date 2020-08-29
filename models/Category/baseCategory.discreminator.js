@@ -24,7 +24,7 @@ const schema = new mongoose.Schema(
       type: String,
       trim: true,
       lowercase: true,
-      default: null,
+      default: '0',
       ref: 'Category'
     },
     category_seq: {
@@ -37,6 +37,7 @@ const schema = new mongoose.Schema(
 schema.plugin(AutoIncrement, {
   id: 'category_counter',
   inc_field: 'category_seq',
+  disable_hooks: true,
   reference_fields: ['parent']
 })
 

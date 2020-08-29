@@ -6,8 +6,9 @@ const router = express.Router()
 
 router
   .route('/')
-  .get(categoryDiscreminator.test)
   .post(categoryDiscreminator.createOne)
+  .get(categoryDiscreminator.getAll)
+  .get(categoryDiscreminator.test)
 
 router.route('/:id').get(categoryDiscreminator.findOne)
 
