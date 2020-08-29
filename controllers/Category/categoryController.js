@@ -34,9 +34,10 @@ exports.createOne = async (req, res, next) => {
 exports.findOne = async (req, res, next) => {
   try {
     const doc = await CategoryModel.findById(req.params.id).populate({
-      path: 'parent'
+      path: 'parent',
+      select: 'name category_seq'
     })
-    console.log(doc)
+    ///console.log(doc)
     res.status(201).json({
       status: 'success',
       doc

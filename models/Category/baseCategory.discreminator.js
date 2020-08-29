@@ -20,6 +20,7 @@ const schema = new mongoose.Schema(
     },
     parent: {
       // type: mongoose.Schema.ObjectId,
+      // ใช้ไม่ได้แบบนี้ ต้องเปลี่ยนเป็น String ถึงจะ populate ค่าของ parent ออกมาได้
       type: String,
       trim: true,
       lowercase: true,

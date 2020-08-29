@@ -9,8 +9,6 @@ router
   .get(categoryDiscreminator.test)
   .post(categoryDiscreminator.createOne)
 
-router
-  .route('/:id')
-  .get(categoryDiscreminator.findOne)
+router.route('/:id').get(categoryDiscreminator.findOne)
 
 module.exports = router

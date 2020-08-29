@@ -29,25 +29,29 @@ app.all('*', (req, res, next) => {
     message: `Can't find ${req.originalUrl} on this server`
   })
 })
-
-const DB = process.env.DATABASE.replace('<PASSWORD>', process.env.DATABASE_PASSWORD)
-
+/*
+const DB = process.env.DATABASE.replace(
+  '<PASSWORD>',
+  process.env.DATABASE_PASSWORD
+)
+*/
 mongoose
-       .connect(process.env.DATABASE_LOCAL, {
+  .connect(process.env.DATABASE_LOCAL, {
     // .connect(DB, {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true
-    }).then(() =>
-        console.log('DB connection is successful! ')
-    )
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+  })
+  // eslint-disable-next-line no-console
+  .then(() => console.log('DB connection is successful! '))
 /*.then((con) => {
     console.log(con.connections), console.log('DB connection is successful! ')
 })*/
 
 const port = config.parsed.PORT || 3000
 
+// eslint-disable-next-line no-console
 app.listen(port, () => console.log(`Server is running on poart ${port}`))
 
 module.exports = app
