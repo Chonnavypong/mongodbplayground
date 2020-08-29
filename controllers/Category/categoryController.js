@@ -18,12 +18,12 @@ exports.test = (req, res) => {
 exports.createOne = async (req, res, next) => {
   try {
     const { name, parent } = req.body
-
-    let doc = ''
-    await CategoryModel.findOne({ name }, async (err, data) => {
+    /*
+* แบบที่ 1 callback function
+    let doc = await CategoryModel.findOne({ name }, async (err, data) => {
       if (data === null) {
         // console.log(`There have no ${name} in your database`)
-        let x = await CategoryModel.create(
+        await CategoryModel.create(
           {
             name,
             parent
@@ -31,7 +31,6 @@ exports.createOne = async (req, res, next) => {
           (err, newData) => {
             newData.setNext('category_counter')
             // console.log(`NEW DATA ${newData}`)
-            return newData
           }
         )
       } else {
@@ -43,6 +42,21 @@ exports.createOne = async (req, res, next) => {
       status: 'success',
       doc
     })
+  */
+    let checkDoc = await CategoryModel.findOne({ name })
+    if (checkDoc === null) {
+      let doc = await CategoryModel.create({ name, parent })
+      doc.setNext('category_counter', (err, data) => {
+        if (!err) {
+          res.status(201).json({
+            status: 'success',
+            doc
+          })
+        }
+      })
+    } else {
+      throw new Error('Duplicate Category')
+    }
   } catch (error) {
     res.json({
       status: 'error',
@@ -58,7 +72,7 @@ exports.findOne = async (req, res, next) => {
       path: 'parent',
       select: 'name category_seq'
     })
-    ///console.log(doc)
+    console.log(doc.category_seq)
     res.status(201).json({
       status: 'success',
       doc
@@ -72,15 +86,18 @@ exports.findOne = async (req, res, next) => {
   }
 }
 exports.getAll = async (req, res, next) => {
-  console.log(req.query)
   try {
-    const doc = await CategoryModel.find({ parent: '0' }).populate({
+    if (req.query.parent === 'null') req.query.parent = null
+    if (req.query.category_seq === 'undefined') req.query.category_seq = undefined
+
+    const doc = await CategoryModel.find(req.query).populate({
       path: 'parent',
       select: 'name category_seq'
     })
     ///console.log(doc)
     res.status(201).json({
       status: 'success',
+      length: doc.length,
       doc
     })
   } catch (error) {

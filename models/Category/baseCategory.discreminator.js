@@ -24,8 +24,12 @@ const schema = new mongoose.Schema(
       type: String,
       trim: true,
       lowercase: true,
-      default: '0',
+      default: null,
       ref: 'Category'
+    },
+    categoryId: {
+      type: String,
+      default: '0000'
     },
     category_seq: {
       type: Number
@@ -40,5 +44,7 @@ schema.plugin(AutoIncrement, {
   disable_hooks: true,
   reference_fields: ['parent']
 })
+
+
 
 module.exports = mongoose.model('Category', schema)
