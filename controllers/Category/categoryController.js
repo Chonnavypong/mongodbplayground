@@ -20,16 +20,20 @@ exports.createOne = async (req, res, next) => {
     const { name, parent } = req.body
 
     let doc = ''
-    await CategoryModel.findOne({name}, async (err, data) => {
+    await CategoryModel.findOne({ name }, async (err, data) => {
       if (data === null) {
         // console.log(`There have no ${name} in your database`)
-        let x = await CategoryModel.create({
-          name, parent
-        }, (err, newData) => { 
-          newData.setNext('category_counter')
-          // console.log(`NEW DATA ${newData}`)
-          return newData
-      })
+        let x = await CategoryModel.create(
+          {
+            name,
+            parent
+          },
+          (err, newData) => {
+            newData.setNext('category_counter')
+            // console.log(`NEW DATA ${newData}`)
+            return newData
+          }
+        )
       } else {
         console.log(err)
         next()
@@ -70,7 +74,7 @@ exports.findOne = async (req, res, next) => {
 exports.getAll = async (req, res, next) => {
   console.log(req.query)
   try {
-    const doc = await CategoryModel.find({parent: '0'}).populate({
+    const doc = await CategoryModel.find({ parent: '0' }).populate({
       path: 'parent',
       select: 'name category_seq'
     })
