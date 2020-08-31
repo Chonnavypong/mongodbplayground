@@ -45,6 +45,19 @@ schema.plugin(AutoIncrement, {
   reference_fields: ['parent']
 })
 
+schema.pre('save', function(next) {
+  console.log('CONSOLE THIS NAME -> ', this.name)
+  // if (this.parent === null) {
+  //   this.categoryId = `${this.category_seq.toString()}00`
+  // }
+  console.log('A : ',typeof(this.category_seq), this.category_seq)
+  console.log(this.categoryId)
+  next()
+})
+
+schema.post('save', function(next) {
+  console.log(this.category_seq)
+})
 
 
 module.exports = mongoose.model('Category', schema)
