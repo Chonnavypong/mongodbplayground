@@ -38,26 +38,18 @@ const schema = new mongoose.Schema(
   baseOptions
 )
 
+schema.pre('save', function(next) {
+  if (this.parent === null && this.category_seq !== undefined) {
+    this.categoryId = `${this.category_seq}00`
+  }
+  next()
+})
+
 schema.plugin(AutoIncrement, {
   id: 'category_counter',
   inc_field: 'category_seq',
   disable_hooks: true,
   reference_fields: ['parent']
 })
-
-schema.pre('save', function(next) {
-  console.log('CONSOLE THIS NAME -> ', this.name)
-  // if (this.parent === null) {
-  //   this.categoryId = `${this.category_seq.toString()}00`
-  // }
-  console.log('A : ',typeof(this.category_seq), this.category_seq)
-  console.log(this.categoryId)
-  next()
-})
-
-schema.post('save', function(next) {
-  console.log(this.category_seq)
-})
-
 
 module.exports = mongoose.model('Category', schema)

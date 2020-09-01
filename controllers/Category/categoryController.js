@@ -43,9 +43,10 @@ exports.createOne = async (req, res, next) => {
       doc
     })
   */
-    let checkDoc = await CategoryModel.findOne({ name })
+    const checkDoc = await CategoryModel.findOne({ name })
     if (checkDoc === null) {
-      let doc = await CategoryModel.create({ name, parent })
+      const doc = await CategoryModel.create({ name, parent })
+      // eslint-disable-next-line no-unused-vars
       doc.setNext('category_counter', (err, data) => {
         if (!err) {
           res.status(201).json({
@@ -72,7 +73,7 @@ exports.findOne = async (req, res, next) => {
       path: 'parent',
       select: 'name category_seq'
     })
-    console.log(doc.category_seq)
+    // console.log(doc.category_seq)
     res.status(201).json({
       status: 'success',
       doc
@@ -88,7 +89,8 @@ exports.findOne = async (req, res, next) => {
 exports.getAll = async (req, res, next) => {
   try {
     if (req.query.parent === 'null') req.query.parent = null
-    if (req.query.category_seq === 'undefined') req.query.category_seq = undefined
+    if (req.query.category_seq === 'undefined')
+      req.query.category_seq = undefined
 
     const doc = await CategoryModel.find(req.query).populate({
       path: 'parent',
