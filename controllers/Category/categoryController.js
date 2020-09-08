@@ -43,9 +43,9 @@ exports.createOne = async (req, res, next) => {
       doc
     })
   */
-    const checkDoc = await CategoryModel.findOne({ name })
-    if (checkDoc === null) {
-      const doc = await CategoryModel.create({ name, parent })
+    
+    const doc = await CategoryModel.create({ name, parent })
+    console.log( 'CHECK DOC FROM CONTROLLER : ', doc)
       // eslint-disable-next-line no-unused-vars
       doc.setNext('category_counter', (err, data) => {
         if (!err) {
@@ -55,9 +55,6 @@ exports.createOne = async (req, res, next) => {
           })
         }
       })
-    } else {
-      throw new Error('Duplicate Category')
-    }
   } catch (error) {
     res.json({
       status: 'error',
