@@ -71,7 +71,16 @@ schema.pre('save', async function(next) {
   }
   next()
 })
-
+/*
+schema.pre('save', function(next){
+  if (true) {
+    console.log('First next calling')
+    return next() // แบบนี้จะออกจาก function ไม่ไปทำงานต่อ
+    // next() แบบนี้จะยังคงไปทำงานตาม code ด้านล่างต่อจนจบ function ( เรียก After Next)
+  }
+  console.log('After Next')
+})
+*/
 schema.plugin(AutoIncrement, {
   id: 'category_counter',
   inc_field: 'category_seq',
