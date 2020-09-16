@@ -81,6 +81,50 @@ schema.pre('save', function(next){
   console.log('After Next')
 })
 */
+
+/*
+post hook เมื่อมี parameters มากกว่า 2 ตัว ทดสอบการเรียก next() function
+*/ 
+/*
+schema.post('save', function(doc, next) {
+  setTimeout(function(){
+    console.log('POST 1')
+    next()
+  }, 10)
+})
+
+schema.post('save', function(doc, next){
+  console.log('POST 2')
+  next()
+})
+
+schema.post('init', function(doc){
+  console.log('%s has been initialized form the db', doc._id)
+})
+
+schema.post('validate', function(doc){
+  console.log('%s has been validated ( but not saved yet) ', doc._id
+  )
+})
+
+schema.post('save', function(doc){
+  console.log('%s has been saved', doc._id)
+})
+
+schema.post('remove', function(doc){
+  console.log('%s has been removed', doc._id)
+})
+*/
+
+// Error Hanling Middleware
+schema.post('save', function(error, doc, next){
+  if (error.name === 'MongoError' && error.code === 11000) {
+    next( new Error('There was duplicate key error'))
+  } else {
+    next()
+  }
+})
+
 schema.plugin(AutoIncrement, {
   id: 'category_counter',
   inc_field: 'category_seq',
