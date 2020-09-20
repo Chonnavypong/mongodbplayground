@@ -35,20 +35,29 @@ const DB = process.env.DATABASE.replace(
   process.env.DATABASE_PASSWORD
 )
 */
+const mongooseOptions = {
+  // .connect(DB, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true
+}
 mongoose
-  .connect(process.env.DATABASE_LOCAL, {
-    // .connect(DB, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-    useUnifiedTopology: true
-  })
+  .connect(
+    process.env.DATABASE_LOCAL1, 
+    mongooseOptions
+    )
   // eslint-disable-next-line no-console
-  .then(() => console.log('DB connection is successful! '))
+  .then(() => console.log('DB 1 connection is successful! '))
 /*.then((con) => {
     console.log(con.connections), console.log('DB connection is successful! ')
 })*/
-
+/* Not work yet
+const db2 = mongoose.createConnection(
+  process.env.DATABASE_LOCAL2,
+  mongooseOptions
+).then( () => console.log('DB2 connection is successful!'))
+*/
 const port = config.parsed.PORT || 3000
 
 // eslint-disable-next-line no-console

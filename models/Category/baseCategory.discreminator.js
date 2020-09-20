@@ -36,7 +36,7 @@ const schema = new mongoose.Schema(
   baseOptions
 )
 
-schema.index({ parent: 1, name: 1 }, {unique: true})
+schema.index({ parent: 1, name: 1 }, { unique: true })
 
 schema.virtual('parentCategory', {
   ref: 'Category',
@@ -49,15 +49,15 @@ schema.pre('save', async function(next) {
   const doc = await this.populate({
     path: 'parent'
   }).execPopulate()
-  
+
   if (this.parent === null && this.category_seq !== undefined) {
-    if (this.category_seq.toString().length == 1){
+    if (this.category_seq.toString().length == 1) {
       this.categoryId = `0${this.category_seq}`
     }
-    if (this.category_seq.toString().length == 2){
+    if (this.category_seq.toString().length == 2) {
       this.categoryId = `${this.category_seq}`
     }
-    if (this.category_seq.toString().length > 2){
+    if (this.category_seq.toString().length > 2) {
       next()
     }
   }
@@ -84,7 +84,8 @@ schema.pre('save', function(next){
 
 /*
 post hook เมื่อมี parameters มากกว่า 2 ตัว ทดสอบการเรียก next() function
-*/ 
+*/
+
 /*
 schema.post('save', function(doc, next) {
   setTimeout(function(){
@@ -117,9 +118,9 @@ schema.post('remove', function(doc){
 */
 // GOAS & TANG tua & kik
 // Error Hanling Middleware
-schema.post('save', function(error, doc, next){
+schema.post('save', function(error, doc, next) {
   if (error.name === 'MongoError' && error.code === 11000) {
-    next( new Error('There was duplicate key error'))
+    next(new Error('There was duplicate key error'))
   } else {
     next()
   }

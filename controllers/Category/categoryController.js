@@ -53,7 +53,7 @@ exports.createOne = async (req, res, next) => {
             status: 'success',
             doc
           })
-        }
+        } 
       })
   } catch (error) {
     res.json({
