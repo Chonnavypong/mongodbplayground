@@ -18,10 +18,11 @@ exports.createOne = async (req, res, next) => {
 
 exports.getAll = async (req, res, next) => {
   try {
-    const doc = await Product.find().populate({
-      path: 'refModel',
-      select: 'body -_id'
-    })
+    const doc = await Product.find()
+    // .populate({
+    //   path: 'refModel',
+    //   select: 'body -_id'
+    // })
     res.status(201).json({
       status: 'success',
       doc

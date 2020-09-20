@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+
+const { Schema } = mongoose
 
 const schema = Schema({
   body: {
@@ -14,11 +15,12 @@ const schema = Schema({
   onModel: {
     type: String,
     requrie: true,
-    enum:[ 'Blog', 'Product']
+    enum: ['Blog', 'Product']
   }
 })
 
 schema.pre('save', function(next) {
+  // eslint-disable-next-line no-console
   console.log(this)
   this.populate({
     path: 'refModel'

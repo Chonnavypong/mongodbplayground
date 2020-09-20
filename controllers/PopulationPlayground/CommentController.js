@@ -20,8 +20,8 @@ exports.getAll = async (req, res, next) => {
   try {
     // const doc = await Comment.find().populate('refModel')
     const doc = await Comment.find()
-    console.log(doc[0].refModel.name)
-    console.log(doc[1].refModel.title)
+    // console.log(doc[0].refModel.name)
+    // console.log(doc[1].refModel.title)
     res.status(201).json({
       status: 'success',
       doc

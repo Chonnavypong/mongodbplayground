@@ -51,10 +51,10 @@ schema.pre('save', async function(next) {
   }).execPopulate()
 
   if (this.parent === null && this.category_seq !== undefined) {
-    if (this.category_seq.toString().length == 1) {
+    if (this.category_seq.toString().length === 1) {
       this.categoryId = `0${this.category_seq}`
     }
-    if (this.category_seq.toString().length == 2) {
+    if (this.category_seq.toString().length === 2) {
       this.categoryId = `${this.category_seq}`
     }
     if (this.category_seq.toString().length > 2) {
@@ -62,10 +62,10 @@ schema.pre('save', async function(next) {
     }
   }
   if (this.parent !== null && this.category_seq !== undefined) {
-    if (this.category_seq.toString().length == 1) {
+    if (this.category_seq.toString().length === 1) {
       this.categoryId = `${doc.parent.categoryId}0${this.category_seq}`
     }
-    if (this.category_seq.toString().length == 2) {
+    if (this.category_seq.toString().length === 2) {
       this.categoryId = `${doc.parent.categoryId}${this.category_seq}`
     }
   }

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+
+const { Schema } = mongoose
 
 const schemaOptions = {
   toJSON: {
@@ -7,13 +8,16 @@ const schemaOptions = {
   }
 }
 
-const schema = Schema({
-  title: {
-    type: String,
-    trim: true,
-    lowercase: true
-  }
-}, schemaOptions)
+const schema = Schema(
+  {
+    title: {
+      type: String,
+      trim: true,
+      lowercase: true
+    }
+  },
+  schemaOptions
+)
 
 schema.virtual('refModel', {
   ref: 'Comment',
