@@ -18,6 +18,7 @@ exports.createOne = async (req, res, next) => {
 
 exports.getAll = async (req, res, next) => {
   try {
+    // ตัวอย่างนี้ เทียบกับใน productController คัวอย่างนี้ไม่ได้ทำการ populate ใน pre hooks middleware จึงต้อง chian populate function ใน BlogController นี้แทน
     const doc = await Blog.find().populate({
       path: 'comments',
       select: 'body'

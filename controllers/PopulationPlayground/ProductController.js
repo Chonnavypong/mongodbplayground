@@ -19,6 +19,7 @@ exports.createOne = async (req, res, next) => {
 exports.getAll = async (req, res, next) => {
   try {
     const doc = await Product.find()
+    // เนื่องจาก ทำการ populated ใน pre hooks middleware แล้ว จึง comment populate function ด้านล่างออก
     // .populate({
     //   path: 'refModel',
     //   select: 'body -_id'
