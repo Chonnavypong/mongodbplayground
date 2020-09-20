@@ -23,14 +23,14 @@ const schema = Schema(
 schema.pre(/^find/, function(next) {
   // eslint-disable-next-line no-console
   this.populate({
-    path: 'refModel',
-    select: 'body -refModel'
+    path: 'comments',
+    select: 'body'
   })
 
   next()
 })
 
-schema.virtual('refModel', {
+schema.virtual('comments', {
   ref: 'Comment',
   localField: '_id',
   foreignField: 'refModel'

@@ -1,8 +1,8 @@
-const Blog = require('../../models/PopulationPlayground/Blog')
+const Brand = require('../../models/PopulationPlayground/brand')
 
 exports.createOne = async (req, res, next) => {
   try {
-    const doc = await Blog.create(req.body)
+    const doc = await Brand.create(req.body)
     res.status(200).json({
       status: 'success',
       doc
@@ -18,11 +18,8 @@ exports.createOne = async (req, res, next) => {
 
 exports.getAll = async (req, res, next) => {
   try {
-    const doc = await Blog.find().populate({
-      path: 'comments',
-      select: 'body'
-    })
-    console.log(doc[0].refModel)
+    const doc = await Brand.find().populate('members')
+
     res.status(201).json({
       status: 'success',
       doc

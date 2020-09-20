@@ -58,7 +58,7 @@ schema.pre('save', async function(next) {
       this.categoryId = `${this.category_seq}`
     }
     if (this.category_seq.toString().length > 2) {
-      next()
+      return next()
     }
   }
   if (this.parent !== null && this.category_seq !== undefined) {

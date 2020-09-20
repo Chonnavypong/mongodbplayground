@@ -1,9 +1,8 @@
 const express = require('express')
 
-const controllers = require('../controllers/PopulationPlayground/BlogController')
+const controllers = require('../controllers/PopulationPlayground/carController')
 
 const router = express.Router()
-
 
 router
 .route('/')

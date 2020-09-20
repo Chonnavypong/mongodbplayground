@@ -10,19 +10,18 @@ const schemaOptions = {
 
 const schema = Schema(
   {
-    title: {
+    name: {
       type: String,
-      trim: true,
-      lowercase: true
+      lowercase: true,
+      trim: true
+    },
+    brand: {
+      type: String,
+      lowercase: true,
+      trim: true
     }
   },
   schemaOptions
 )
 
-schema.virtual('comments', {
-  ref: 'Comment',
-  localField: '_id',
-  foreignField: 'refModel'
-})
-
-module.exports = mongoose.model('Blog', schema)
+module.exports = mongoose.model('Car', schema)
