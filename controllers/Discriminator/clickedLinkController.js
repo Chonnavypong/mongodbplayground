@@ -1,8 +1,8 @@
-const Car = require('../../models/PopulationPlayground/car')
+const ClickedEvent = require('../../models/Discriminator/ClickedLinkEvent')
 
 exports.createOne = async (req, res, next) => {
   try {
-    const doc = await Car.create(req.body)
+    const doc = await ClickedEvent.create(req.body)
     res.status(200).json({
       status: 'success',
       doc
@@ -18,8 +18,8 @@ exports.createOne = async (req, res, next) => {
 
 exports.getAll = async (req, res, next) => {
   try {
-    const doc = await Car.find()
-
+    // ตัวอย่างนี้ เทียบกับใน productController คัวอย่างนี้ไม่ได้ทำการ populate ใน pre hooks middleware จึงต้อง chian populate function ใน EventController นี้แทน
+    const doc = await ClickedEvent.find()
     res.status(201).json({
       status: 'success',
       doc

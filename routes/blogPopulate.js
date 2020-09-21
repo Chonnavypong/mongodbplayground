@@ -4,10 +4,9 @@ const controllers = require('../controllers/PopulationPlayground/BlogController'
 
 const router = express.Router()
 
-
 router
-.route('/')
-.post(controllers.createOne)
-.get(controllers.getAll)
+  .route('/')
+  .post(controllers.createOne)
+  .get(controllers.getAll)
 
 module.exports = router

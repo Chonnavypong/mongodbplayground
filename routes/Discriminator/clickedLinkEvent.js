@@ -1,6 +1,6 @@
 const express = require('express')
 
-const controllers = require('../controllers/PopulationPlayground/carController')
+const controllers = require('../../controllers/Discriminator/clickedLinkController')
 
 const router = express.Router()
 

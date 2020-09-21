@@ -1,8 +1,8 @@
-const Car = require('../../models/PopulationPlayground/car')
+const Circle = require('../../../models/Discriminator/nestedDiscriminators/Circle')
 
 exports.createOne = async (req, res, next) => {
   try {
-    const doc = await Car.create(req.body)
+    const doc = await Circle.create(req.body)
     res.status(200).json({
       status: 'success',
       doc
@@ -18,8 +18,7 @@ exports.createOne = async (req, res, next) => {
 
 exports.getAll = async (req, res, next) => {
   try {
-    const doc = await Car.find()
-
+    const doc = await Circle.find()
     res.status(201).json({
       status: 'success',
       doc
