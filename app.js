@@ -36,10 +36,10 @@ const DB = process.env.DATABASE.replace(
 )
 */
 
-const DB_DATASET = process.env.DATABASE_DATASET.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_DATASET_PASSWORD
-)
+// const DB_DATASET = process.env.DATABASE_DATASET.replace(
+//   '<PASSWORD>',
+//   process.env.DATABASE_DATASET_PASSWORD
+// )
 
 const mongooseOptions = {
   useNewUrlParser: true,

@@ -24,6 +24,9 @@ router.use(
 //   require('./Discriminator/nestedDiscriminators/shape')
 // )
 
+// Aggregation Playground
+router.use('/aggregation/zipcode', require('./Dataset/zipCode'))
+
 router.use('/inhabitant', require('./inhibitantRoute'))
 
 module.exports = router
