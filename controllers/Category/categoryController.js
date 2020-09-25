@@ -43,18 +43,19 @@ exports.createOne = async (req, res, next) => {
       doc
     })
   */
-    
+
     const doc = await CategoryModel.create({ name, parent })
-    console.log( 'CHECK DOC FROM CONTROLLER : ', doc)
-      // eslint-disable-next-line no-unused-vars
-      doc.setNext('category_counter', (err, data) => {
-        if (!err) {
-          res.status(201).json({
-            status: 'success',
-            doc
-          })
-        } 
-      })
+    // eslint-disable-next-line no-console
+    console.log('CHECK DOC FROM CONTROLLER : ', doc)
+    // eslint-disable-next-line no-unused-vars
+    doc.setNext('category_counter', (err, data) => {
+      if (!err) {
+        res.status(201).json({
+          status: 'success',
+          doc
+        })
+      }
+    })
   } catch (error) {
     res.json({
       status: 'error',
