@@ -27,6 +27,7 @@ router.use(
 // Aggregation Playground
 router.use('/aggregation/zipcode', require('./Dataset/zipCode'))
 router.use('/aggregation/training/company', require('./Dataset/training/trainingCompany'))
+router.use('/aggregation/training/posts', require('./Dataset/training/trainingPosts'))
 
 router.use('/inhabitant', require('./inhibitantRoute'))
 
