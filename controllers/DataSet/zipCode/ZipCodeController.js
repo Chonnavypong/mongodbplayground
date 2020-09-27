@@ -21,6 +21,7 @@ exports.getAll = async (req, res, next) => {
     const doc = await ZipCode.find()
     // const stat = await ZipCode.aggregate([
     //   {
+    //     $match: { state: 'NY' }
     //     $match: { pop: { $gt: 90, $lte: 95 } }
     //   },
     //   {

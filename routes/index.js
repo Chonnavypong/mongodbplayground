@@ -28,6 +28,10 @@ router.use(
 router.use('/aggregation/zipcode', require('./Dataset/zipCode'))
 router.use('/aggregation/training/company', require('./Dataset/training/trainingCompany'))
 router.use('/aggregation/training/posts', require('./Dataset/training/trainingPosts'))
+router.use('/aggregation/training/grades', require('./Dataset/training/trainingGrades'))
+
+// Aggregation Playground - w3resource -restaurants
+router.use('/aggregation/w3resource/restaurants', require('./Dataset/w3resource/restaurants'))
 
 router.use('/inhabitant', require('./inhibitantRoute'))
 
