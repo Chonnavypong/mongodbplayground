@@ -537,8 +537,15 @@ exports.getAll = async (rea, res, next) => {
     //       $and: [
     //         { 'grades.grade': 'A' },
     //         { 'grades.score': { $eq: 11 } },
-    //         { 'grades.date': { $toDate: '$grades.date' } } // ยังทำไม่ได้ ลองแก้ไข
+    //         { 'grades.date': {$eq: new Date('2014-08-11T00:00:00Z')} }
     //       ]
+    //     }
+    //   },
+    //   {
+    //     $project: {
+    //       restaurant_id: 1,
+    //       name: 1,
+    //       grades: 1
     //     }
     //   }
     // ])
@@ -563,48 +570,248 @@ exports.getAll = async (rea, res, next) => {
                        {"restaurant_id" : 1,"name":1,"grades":1}
                    );
     */
-   // 23.1
-   const doc = await Model.aggregate([
+    // 23.1
+    // const doc = await Model.aggregate([
+    //   {
+    //     $match: {
+    //       $and: [
+    //         { 'grades.1.date': new Date('2014-08-11T00:00:00Z') },
+    //         { 'grades.1.grade': 'A' },
+    //         { 'grades.1.score': 9 }
+    //       ]
+    //     }
+    //   },
+    //   {
+    //     $project: {
+    //       restaurant_id: 1,
+    //       name: 1,
+    //       grades: 1
+    //     }
+    //   }
+    // ])
 
-   ])
+    // 23.2
+    // const doc = await Model.find(
+    //   {
+    //     'grades.1.date': new Date('2014-08-11T00:00:00Z'),
+    //     'grades.1.grade': 'A',
+    //     'grades.1.score': 9
+    //   },
+    //   { restaurant_id: 1, name: 1, grades: 1 }
+    // )
 
-   /*
+    /*
    24. Write a MongoDB query to find the restaurant Id, name, address and geographical location for those restaurants where 2nd element of coord array contains a value which is more than 42 and upto 52.
-
-
    */
-
-   /*
+    // 24.1
+    // const doc = await Model.aggregate([
+    //   {
+    //     $match: {
+    //       'address.coord.1': {$gt: 42, $lte: 52}
+    //     }
+    //   },
+    //   {
+    //     $project: {
+    //       restaurant_id: 1,
+    //       name: 1,
+    //       address: 1,
+    //       coord: 1
+    //     }
+    //   }
+    // ])
+    // 24.2
+    // const doc = await Model.find(
+    //   {
+    //     'address.coord.1': {$gt: 42, $lte: 52}
+    //   },
+    //   {
+    //     restaurant_id: 1,
+    //     name: 1,
+    //     address: 1,
+    //     coord : 1
+    //   }
+    // )
+    /*
    25. Write a MongoDB query to arrange the name of the restaurants in ascending order along with all the columns.
    */
-
-   /*
+    // 25.1
+    // const doc = await Model.aggregate([
+    //   {
+    //     $sort: {
+    //       name: 1
+    //     }
+    //   }
+    // ])
+    // 25.2
+    // const doc = await Model.find().sort({name: 1})
+    /*
    26. Write a MongoDB query to arrange the name of the restaurants in descending along with all the columns.
    */
+    // 26.1
+    // const doc = await Model.aggregate([
+    //   {
+    //     $sort: {
+    //       name: -1
+    //     }
+    //   }
+    // ])
 
-   /*
+    // 26.2
+    // const doc = await Model.find().sort({name: -1})
+    /*
    27. Write a MongoDB query to arranged the name of the cuisine in ascending order and for that same cuisine borough should be in descending order.
    */
+    // 27.1
+    // const doc = await Model.aggregate([
+    //   {
+    //     $project : { cuisine: 1, borough: 1 }
+    //   },
+    //   {
+    //     $sort: { cuisine: 1, borough: -1}
+    //   }
+    // ])
 
-   /*
+    // 27.2
+    // const doc = await Model.find({},{
+    //   cuisine: 1,
+    //   borough: 1
+    // }).sort({
+    //   cuisine: 1,
+    //   borough: -1
+    // })
+
+    /*
    28. Write a MongoDB query to know whether all the addresses contains the street or not.
    */
+    // 28.1
+    // const doc = await Model.aggregate([
+    //   {
+    //     $match: {
+    //       'address.street': {
+    //         $exists: false
+    //       }
+    //     }
+    //   }
+    // ])
+    // 28.2
+    //  const doc = await Model.find({'address.street': {$exists: false}})
 
-   /*
+    /*
    29. Write a MongoDB query which will select all documents in the restaurants collection where the coord field value is Double.
    */
-
-   /*
+    // 29.1
+    // const doc = await Model.aggregate([
+    //   {
+    //     $match: {
+    //       // 'address.coord': {$type: 'double'}
+    //       'address.coord': {$type: 16} // 16 === 32-bit integer ('int')
+    //     }
+    //   }
+    // ])
+    // 29.2
+    // const doc = await Model.find({
+    //   // 'address.coord' : {$type: 1} // Or (1 === 'bouble' : Note. https://docs.mongodb.com/manual/reference/operator/query/type/)
+    //   'address.coord': {$type: 'double'}
+    // })
+    /*
    30. Write a MongoDB query which will select the restaurant Id, name and grades for those restaurants which returns 0 as a remainder after dividing the score by 7. 
    */
-
-   /*
+    // 30.1
+    // const doc = await Model.aggregate([
+    //   {
+    //     $match: {
+    //       'grades.score': {
+    //         $mod: [7, 0]
+    //       }
+    //     }
+    //   },
+    //   {
+    //     $project: {
+    //       restaurant_id: 1,
+    //       name: 1,
+    //       grades: 1
+    //     }
+    //   }
+    // ])
+    // 30.2
+    // const doc = await Model.find(
+    //   {
+    //     'grades.score': {
+    //       $mod: [7, 0]
+    //     }
+    //   },
+    //   {
+    //     restaurant_id: 1,
+    //     name: 1,
+    //     grades: 1
+    //   }
+    // )
+    /*
    31. Write a MongoDB query to find the restaurant name, borough, longitude and attitude and cuisine for those restaurants which contains 'mon' as three letters somewhere in its name.
    */
-
-   /*
+  // 31.1
+  // const doc = await Model.aggregate([
+  //   {
+  //     $match: {
+  //       name: {
+  //         $regex: /mon/,
+  //         $options: 'i'
+  //       }
+  //     }
+  //   },
+  //   {
+  //     $project: {
+  //       name: 1,
+  //       borough: 1,
+  //       'address.coord': 1
+  //     }
+  //   }
+  // ])
+  // 31.2
+  // const doc = await Model.find({
+  //   name: { 
+  //     $regex: 'mon.',
+  //     $options: 'i'
+  //   }
+  // }, {
+  //   name : 1,
+  //   borough: 1,
+  //   'address.coord': 1
+  // })
+                    
+    /*
    32. Write a MongoDB query to find the restaurant name, borough, longitude and latitude and cuisine for those restaurants which contain 'Mad' as first three letters of its name.
    */
+  // 32.1
+  const doc = await Model.aggregate([
+    {
+      $match: {
+        name: {
+          $regex: /^Mad/i
+        }
+      }
+    },
+    {
+      $project: {
+        name: 1,
+        borough: 1,
+        'address.coord': 1,
+        cuisine: 1
+      }
+    }
+  ])
+              
+   // 32.2
+  // const doc = await Model.find({
+  //   name: {
+  //     $regex: /^Mad/
+  //   }
+  // }, {
+  //   name: 1,
+  //   borought: 1,
+  //   'address.coord': 1,
+  //   cuisine: 1
+  // })
 
     /* ---------- */
 
