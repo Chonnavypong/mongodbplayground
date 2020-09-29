@@ -17,7 +17,33 @@ const Model = require('../../../models/DATASET/training/weather')
 
 exports.getAll = async (req, res, next) => {
   try {
-    const doc = await Model.find().limit()
+    // const doc = await Model.find({
+    //   superman: "YES I AM"
+    // }).limit()
+
+    const doc = await Model.aggregate([
+      {
+        $match: {
+          superman: "YES I AM"
+        }
+      }
+    ])
+    res.status(200).json({
+      status: 'success',
+      length: doc.length,
+      doc
+    })
+  } catch (error) {
+    res.status(404).json({
+      status: 'Error',
+      message: error.message
+    })
+  }
+}
+exports.getOne = async (req, res, next) => {
+  try {
+    console.log(req.params.id)
+    const doc = await Model.find({_id: req.params.id})
 
     res.status(200).json({
       status: 'success',
