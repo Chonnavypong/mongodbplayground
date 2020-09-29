@@ -33,6 +33,10 @@ router.use('/aggregation/training/grades', require('./Dataset/training/trainingG
 // Aggregation Playground - w3resource -restaurants
 router.use('/aggregation/w3resource/restaurants', require('./Dataset/w3resource/restaurants'))
 
+// DB Connection playground
+router.use('/connection/weather', require('./Dataset/training/weather'))
+
+
 router.use('/inhabitant', require('./inhibitantRoute'))
 
 module.exports = router

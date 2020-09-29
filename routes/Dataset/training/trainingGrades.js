@@ -9,4 +9,5 @@ router
 //   .post(controllers.createOne)
   .get(controllers.getAll)
 
+
 module.exports = router

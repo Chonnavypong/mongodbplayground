@@ -3,7 +3,6 @@ const Model = require('../../../models/DATASET/training/trainingGrades')
 exports.getAll = async (req, res, next) => {
     try {
         const doc = await Model.find().limit(10)
-        // const doc = await Model.aggregate([])
 
         res.status(200).json({
             status: 'success',

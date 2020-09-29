@@ -196,4 +196,5 @@ const schema = new Schema(
   },
   schemaOptions
 )
-module.exports = mongoose.model('training_companies', schema)
+// module.exports = mongoose.model('training_companies', schema)
+module.exports = mongoose.model('companies', schema)

@@ -36,10 +36,10 @@ const DB = process.env.DATABASE.replace(
 )
 */
 
-// const DB_DATASET = process.env.DATABASE_DATASET.replace(
-//   '<PASSWORD>',
-//   process.env.DATABASE_DATASET_PASSWORD
-// )
+const DB_DATASET = process.env.MONGODB_WEATHER.replace(
+  '<PASSWORD>',
+  process.env.MONGODB_DATASET_PASSWORD
+)
 
 const mongooseOptions = {
   useNewUrlParser: true,
@@ -47,20 +47,18 @@ const mongooseOptions = {
   useFindAndModify: false,
   useUnifiedTopology: true
 }
-mongoose
-  .connect(process.env.DATABASE_LOCAL1, mongooseOptions)
-  // eslint-disable-next-line no-console
-  .then(() => console.log('DB 1 connection is successful! '))
+  mongoose
+  //   .connect(process.env.DATABASE_LOCAL1, mongooseOptions)
+  // //   // eslint-disable-next-line no-console
+  //   .then(() => console.log('LOCAL DB 1 connection is successful! '))
 
-/*
- * CONNECT TO mongoDB database dataset for aggregation practice
- */
-// .connect(DB_DATASET, mongooseOptions)
-// eslint-disable-next-line no-console
-// .then(() => console.log('DB DATASET connection is successful! '))
-/*.then((con) => {
-    console.log(con.connections), console.log('DB connection is successful! ')
-})*/
+  /*
+   * CONNECT TO mongoDB database dataset for aggregation practice
+   */
+  .connect(DB_DATASET, mongooseOptions)
+  // eslint-disable-next-line no-console
+  .then(() => console.log('DB DATASET connection is successful! '))
+  
 /* Not work yet
 const db2 = mongoose.createConnection(
   process.env.DATABASE_LOCAL2,
