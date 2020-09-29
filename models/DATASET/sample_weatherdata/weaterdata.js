@@ -14,4 +14,4 @@ const schema = new mongoose.Schema({
   }
 })
 
-module.exports = mongoose.model('Weather', schema)
+module.exports = mongoose.model('Data', schema)
