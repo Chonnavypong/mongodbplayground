@@ -47,7 +47,7 @@ const mongooseOptions = {
   useFindAndModify: false,
   useUnifiedTopology: true
 }
-  mongoose
+mongoose
   //   .connect(process.env.DATABASE_LOCAL1, mongooseOptions)
   // //   // eslint-disable-next-line no-console
   //   .then(() => console.log('LOCAL DB 1 connection is successful! '))
@@ -58,7 +58,7 @@ const mongooseOptions = {
   .connect(DB_DATASET, mongooseOptions)
   // eslint-disable-next-line no-console
   .then(() => console.log('DB DATASET connection is successful! '))
-  
+
 /* Not work yet
 const db2 = mongoose.createConnection(
   process.env.DATABASE_LOCAL2,
