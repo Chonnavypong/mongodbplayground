@@ -47,12 +47,11 @@ const conn2 = mongoose.createConnection(
   mongooseOptions
 )
 
-/*
 mongoose
-  .connect(process.env.DATABASE_LOCAL3, mongooseOptions)
+  .connect(process.env.DATABASE_LOCAL2, mongooseOptions)
   // eslint-disable-next-line no-console
-  .then(() => console.log('LOCAL DB 3 connection is successful! '))
-*/
+  .then(() => console.log('LOCAL DB 2 connection is successful! '))
+
 /*
  * CONNECT TO mongoDB database dataset for aggregation practice
  */

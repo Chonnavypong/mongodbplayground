@@ -1,10 +1,11 @@
 const express = require('express')
 
 const config = require('dotenv').config({
-  path: './environment/config.env'
+  path: './config.env'
 })
 
 const morgan = require('morgan')
+
 require('./configs/db')
 
 const app = express()
