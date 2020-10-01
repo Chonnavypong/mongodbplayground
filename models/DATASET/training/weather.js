@@ -3,12 +3,16 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 
 const schemaOptions = {
-    timestamp: true
-  }
+  timestamp: true
+}
 
-const schema = new Schema({
+const schema = new Schema(
+  {
     superman: String
-}, schemaOptions)
+  },
+  schemaOptions
+)
 
 // module.exports = mongoose.model('training_grades', schema)
-module.exports = mongoose.model('data', schema)
+// module.exports = mongoose.model('data', schema)
+module.exports = schema

@@ -1,4 +1,12 @@
-const Model = require('../../../models/DATASET/training/weather')
+// const Model = require('../../../models/DATASET/training/weather')
+
+const schema = require('../../../models/DATASET/training/weather')
+
+const conn = require('../../../configs/db')
+
+const { conn2 } = conn
+
+const Model = conn2.model('weather', schema)
 
 // exports.testz = (req, res, next) => {
 //     try {
@@ -24,7 +32,7 @@ exports.getAll = async (req, res, next) => {
     const doc = await Model.aggregate([
       {
         $match: {
-          superman: "YES I AM"
+          superman: 'YES I AM'
         }
       }
     ])
@@ -43,7 +51,7 @@ exports.getAll = async (req, res, next) => {
 exports.getOne = async (req, res, next) => {
   try {
     console.log(req.params.id)
-    const doc = await Model.find({_id: req.params.id})
+    const doc = await Model.find({ _id: req.params.id })
 
     res.status(200).json({
       status: 'success',
