@@ -2,7 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 
 const config = require('dotenv').config({
-  path: './config.env'
+  path: './environment/config.env'
 })
 
 const morgan = require('morgan')
@@ -48,16 +48,19 @@ const mongooseOptions = {
   useUnifiedTopology: true
 }
   mongoose
-  //   .connect(process.env.DATABASE_LOCAL1, mongooseOptions)
-  // //   // eslint-disable-next-line no-console
-  //   .then(() => console.log('LOCAL DB 1 connection is successful! '))
+    // .connect(process.env.DATABASE_LOCAL1, mongooseOptions)
+    // // eslint-disable-next-line no-console
+    // .then(() => console.log('LOCAL DB 1 connection is successful! '))
+    .connect(process.env.DATABASE_LOCAL3, mongooseOptions)
+    // eslint-disable-next-line no-console
+    .then(() => console.log('LOCAL DB 3 connection is successful! '))
 
   /*
    * CONNECT TO mongoDB database dataset for aggregation practice
    */
-  .connect(DB_DATASET, mongooseOptions)
-  // eslint-disable-next-line no-console
-  .then(() => console.log('DB DATASET connection is successful! '))
+  // .connect(DB_DATASET, mongooseOptions)
+  // // eslint-disable-next-line no-console
+  // .then(() => console.log('DB DATASET connection is successful! '))
   
 /* Not work yet
 const db2 = mongoose.createConnection(
