@@ -5,11 +5,13 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
-    "start:prod": "NODE_ENV=production nodemon app.js"
+    "start:prod": "NODE_ENV=production nodemon app.js",
+    "debug": "ndb server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bl": "2.2.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.7.8",
@@ -28,6 +30,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "ndb": "^1.1.5",
     "prettier": "^1.18.2"
   },
   "engines": {

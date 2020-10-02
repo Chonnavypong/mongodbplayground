@@ -7,6 +7,6 @@ const router = express.Router()
 router
   .route('/')
   .post(controllers.createOne)
-  .get(controllers.getAll)
+  // .get(controllers.getAll)
 
 module.exports = router

@@ -1,6 +1,6 @@
 const express = require('express')
 
-const controllers = require('../../../controllers/DataSet/training/trainingGrades')
+const controllers = require('../../controllers/Validator/validator-1')
 
 const router = express.Router()
 

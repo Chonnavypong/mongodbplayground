@@ -1,11 +1,12 @@
 const express = require('express')
-const mongoose = require('mongoose')
 
 const config = require('dotenv').config({
   path: './environment/config.env'
 })
 
 const morgan = require('morgan')
+
+require('./configs/db')
 
 const app = express()
 
@@ -29,45 +30,6 @@ app.all('*', (req, res, next) => {
     message: `Can't find ${req.originalUrl} on this server`
   })
 })
-/*
-const DB = process.env.DATABASE.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
-)
-*/
-
-const DB_DATASET = process.env.MONGODB_WEATHER.replace(
-  '<PASSWORD>',
-  process.env.MONGODB_DATASET_PASSWORD
-)
-
-const mongooseOptions = {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-  useUnifiedTopology: true
-}
-  mongoose
-    // .connect(process.env.DATABASE_LOCAL1, mongooseOptions)
-    // // eslint-disable-next-line no-console
-    // .then(() => console.log('LOCAL DB 1 connection is successful! '))
-    .connect(process.env.DATABASE_LOCAL3, mongooseOptions)
-    // eslint-disable-next-line no-console
-    .then(() => console.log('LOCAL DB 3 connection is successful! '))
-
-  /*
-   * CONNECT TO mongoDB database dataset for aggregation practice
-   */
-  // .connect(DB_DATASET, mongooseOptions)
-  // // eslint-disable-next-line no-console
-  // .then(() => console.log('DB DATASET connection is successful! '))
-  
-/* Not work yet
-const db2 = mongoose.createConnection(
-  process.env.DATABASE_LOCAL2,
-  mongooseOptions
-).then( () => console.log('DB2 connection is successful!'))
-*/
 const port = config.parsed.PORT || 3000
 
 // eslint-disable-next-line no-console
