@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const AppError = require('../utils/appError')
 // สร้าง error middleware ใช้สำหรับ error อื่นๆ ที่ไม่ใช้ operation error
 
@@ -9,6 +10,11 @@ const handleCastErrorDB = err => {
 const sendErrorDev = (err, res) => {
   console.log('xxxxxxxxxxxx')
   console.log('ERROR DEV -> ',err.name)
+=======
+
+
+const sendErrorDev = (err, res) => {
+>>>>>>> 72f0f15a1d32cc8f930309915ce969d526ec5d08
   res.status(err.statusCode).json({
     status: err.status,
     error: err,
@@ -18,8 +24,7 @@ const sendErrorDev = (err, res) => {
 }
 
 const sendErrorProd = (err, res) => {
-  // Operational, trusted error: send message to client
-  if (err.isOperational) {
+  if (err.operational) {
     res.status(err.statusCode).json({
       status: err.status,
       message: err.message
@@ -35,6 +40,7 @@ const sendErrorProd = (err, res) => {
 }
 
 module.exports = (err, req, res, next) => {
+<<<<<<< HEAD
   console.log('GLOBAL HANDLER')
 
   // console.log(err.stack)
@@ -48,6 +54,17 @@ module.exports = (err, req, res, next) => {
   } else if ( process.env.NODE_ENV === 'production') {
     let error = { ...err }
     if (err.name === 'CastError') error = handleCastErrorDB(error)
+=======
+  err.statusCode = err.statusCode || 500
+  err.status = err.status || 'error'
+
+  if (process.env.NODE_ENV === 'development') {
+    sendErrorDev(err, res)
+  } else if (process.env.NODE_ENV === 'production') {
+    let error = { ...err }
+
+    // if (error.name === 'ValidationError') error = validationErrorDB(error)
+>>>>>>> 72f0f15a1d32cc8f930309915ce969d526ec5d08
     sendErrorProd(error, res)
   }
 }
