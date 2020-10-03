@@ -1,10 +1,14 @@
 const express = require('express')
 
+// const config = require('dotenv').config({
+//   path: './environment/config.env'
+// })
 const config = require('dotenv').config({
-  path: './environment/config.env'
+  path: './config.env'
 })
 
 const morgan = require('morgan')
+const globalErrorHandler = require('./controllers/errorController')
 
 require('./configs/db')
 
@@ -34,5 +38,7 @@ const port = config.parsed.PORT || 3000
 
 // eslint-disable-next-line no-console
 app.listen(port, () => console.log(`Server is running on poart ${port}`))
+
+app.use(globalErrorHandler)
 
 module.exports = app

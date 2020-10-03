@@ -18,7 +18,8 @@ const schema = new mongoose.Schema(
 )
 
 // หากเกิด error ก่อน จะ console.log เฉพาะ 'this gets printed first' ครั้งแรกเท่านั้น
-
+/* 
+// ลำดับการทำงาน
 schema.pre('validate', function() {
   console.log('this gets printed first')
 })
@@ -31,5 +32,5 @@ schema.pre('save', function() {
 schema.post('save', function() {
   console.log('this gets printed fourth')
 })
-
+*/
 module.exports = mongoose.model('Validator1', schema)
