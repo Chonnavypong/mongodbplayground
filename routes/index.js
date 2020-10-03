@@ -48,10 +48,9 @@ router.use(
 // DB Connection playground
 router.use('/connection/weather', require('./Dataset/training/weather'))
 
-// Validator 
+// Validator
 router.use('/validator/validator_1', require('./Validator/validator_1'))
 
 router.use('/inhabitant', require('./inhibitantRoute'))
-
 
 module.exports = router

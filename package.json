@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon app.js",
     "start:prod": "NODE_ENV=production nodemon app.js",
-    "debug": "ndb server.js"
+    "debug": "ndb app.js"
   },
   "author": "",
   "license": "ISC",
