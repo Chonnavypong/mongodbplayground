@@ -11,7 +11,7 @@ const schema = new mongoose.Schema(
     validator_seq: {
       type: Number,
       min: 1,
-      max: 3
+      max: [3, 'MAX Value must less than or equal 3']
     }
   },
   baseOptions

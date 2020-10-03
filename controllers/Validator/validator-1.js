@@ -49,3 +49,17 @@ exports.getAll = async (req, res, next) => {
     })
   }
 }
+
+exports.getOne = async (req, res, next) => {
+  try {
+    const { id } = req.params
+    const doc = await Model.findById(id)
+    res.status(200).json({
+      status: 'success',
+      length: doc.length,
+      doc
+    })
+  } catch (err) {
+    next(err)
+  }
+}
