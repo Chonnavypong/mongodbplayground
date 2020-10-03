@@ -82,7 +82,6 @@ process.on('unhandledRejection', err => {
   })
 })
 
-
 app.use(globalErrorHandler)
 
 module.exports = app

@@ -749,69 +749,69 @@ exports.getAll = async (rea, res, next) => {
     /*
    31. Write a MongoDB query to find the restaurant name, borough, longitude and attitude and cuisine for those restaurants which contains 'mon' as three letters somewhere in its name.
    */
-  // 31.1
-  // const doc = await Model.aggregate([
-  //   {
-  //     $match: {
-  //       name: {
-  //         $regex: /mon/,
-  //         $options: 'i'
-  //       }
-  //     }
-  //   },
-  //   {
-  //     $project: {
-  //       name: 1,
-  //       borough: 1,
-  //       'address.coord': 1
-  //     }
-  //   }
-  // ])
-  // 31.2
-  // const doc = await Model.find({
-  //   name: { 
-  //     $regex: 'mon.',
-  //     $options: 'i'
-  //   }
-  // }, {
-  //   name : 1,
-  //   borough: 1,
-  //   'address.coord': 1
-  // })
-                    
+    // 31.1
+    // const doc = await Model.aggregate([
+    //   {
+    //     $match: {
+    //       name: {
+    //         $regex: /mon/,
+    //         $options: 'i'
+    //       }
+    //     }
+    //   },
+    //   {
+    //     $project: {
+    //       name: 1,
+    //       borough: 1,
+    //       'address.coord': 1
+    //     }
+    //   }
+    // ])
+    // 31.2
+    // const doc = await Model.find({
+    //   name: {
+    //     $regex: 'mon.',
+    //     $options: 'i'
+    //   }
+    // }, {
+    //   name : 1,
+    //   borough: 1,
+    //   'address.coord': 1
+    // })
+
     /*
    32. Write a MongoDB query to find the restaurant name, borough, longitude and latitude and cuisine for those restaurants which contain 'Mad' as first three letters of its name.
    */
-  // 32.1
-  const doc = await Model.aggregate([
-    {
-      $match: {
-        name: {
-          $regex: /^Mad/i
+    // 32.1
+    const doc = await Model.aggregate([
+      {
+        $match: {
+          name: {
+            $regex: /^Mad/i
+          }
+        }
+      },
+      {
+        $project: {
+          name: 1,
+          borough: 1,
+          'address.coord': 1,
+          cuisine: 1
         }
       }
-    },
-    {
-      $project: {
-        name: 1,
-        borough: 1,
-        'address.coord': 1,
-        cuisine: 1
-      }
-    }
-  ])
-              
-   // 32.2
-  // const doc = await Model.find({
-  //   name: {
-  //     $regex: /^Mad/
-  //   }
-  // }, {
-  //   name: 1,
-  //   borought: 1,
-  //   'address.coord': 1,
-  //   cuisine: 1
-  // })
+    ])
+
+    // 32.2
+    // const doc = await Model.find({
+    //   name: {
+    //     $regex: /^Mad/
+    //   }
+    // }, {
+    //   name: 1,
+    //   borought: 1,
+    //   'address.coord': 1,
+    //   cuisine: 1
+    // })
 
     /* ---------- */
 

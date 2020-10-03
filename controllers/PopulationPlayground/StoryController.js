@@ -37,15 +37,17 @@ exports.getAll = async (req, res, next) => {
     //   path: 'author fans',
     //   select: 'name age -_id'
     // })
-    const doc = await StoryModel.find().sort({title: 1}).populate({
-      path: 'fans',
-      options: {limit: 5}
-      // perDocumentLimit: 
-    })
-    console.log(doc[0].title ,doc[0].fans.length)
-    console.log(doc[1].title ,doc[1].fans.length)
-    console.log(doc[2].title ,doc[2].fans.length)
-    console.log(doc[3].title ,doc[3].fans.length)
+    const doc = await StoryModel.find()
+      .sort({ title: 1 })
+      .populate({
+        path: 'fans',
+        options: { limit: 5 }
+        // perDocumentLimit:
+      })
+    console.log(doc[0].title, doc[0].fans.length)
+    console.log(doc[1].title, doc[1].fans.length)
+    console.log(doc[2].title, doc[2].fans.length)
+    console.log(doc[3].title, doc[3].fans.length)
     /* .populate({
       path: 'author fans',
       match: { age: { $gt: 21 } },
@@ -82,9 +84,7 @@ exports.getAll = async (req, res, next) => {
 exports.getOne = async (req, res, next) => {
   try {
     console.log(req.query)
-    const doc = await StoryModel.findOne(
-      req.body
-    ).populate('fans')
+    const doc = await StoryModel.findOne(req.body).populate('fans')
 
     res.status(201).json({
       status: 'success',
