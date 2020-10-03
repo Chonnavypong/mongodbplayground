@@ -4,6 +4,12 @@ const morgan = require('morgan')
 const AppError = require('./utils/appError')
 const globalErrorHandler = require('./controllers/errorController')
 
+process.on('uncaughtException', err => {
+  console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...')
+  console.log(err.name, err.message)
+  process.exit(1)
+})
+
 // const config = require('dotenv').config({
 //   path: './environment/config.env'
 // })
@@ -11,12 +17,6 @@ const config = require('dotenv').config({
   path: './config.env'
 })
 
-<<<<<<< HEAD
-=======
-const morgan = require('morgan')
-const globalErrorHandler = require('./controllers/errorController')
-
->>>>>>> 72f0f15a1d32cc8f930309915ce969d526ec5d08
 require('./configs/db')
 
 const app = express()
@@ -63,6 +63,7 @@ app.all('*', (req, res, next) => {
 
 //   res.status( err.statusCode).json({
 //     status: err.status,
+
 //     message: err.message
 //   })
 // })
@@ -72,6 +73,15 @@ const port = config.parsed.PORT || 3000
 
 // eslint-disable-next-line no-console
 app.listen(port, () => console.log(`Server is running on poart ${port}`))
+
+process.on('unhandledRejection', err => {
+  console.log('UNHANDLED REJECTION! 💥 Shutting down...')
+  console.log(err.name, err.message)
+  server.close(() => {
+    process.exit(1)
+  })
+})
+
 
 app.use(globalErrorHandler)
 

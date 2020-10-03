@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const AppError = require('../utils/appError')
 // สร้าง error middleware ใช้สำหรับ error อื่นๆ ที่ไม่ใช้ operation error
 
@@ -7,14 +6,22 @@ const handleCastErrorDB = err => {
   return new AppError(message, 400)
 }
 
-const sendErrorDev = (err, res) => {
-  console.log('xxxxxxxxxxxx')
-  console.log('ERROR DEV -> ',err.name)
-=======
+const handleDuplicateFieldsDB = err => {
+  const value = err.errmsg.match(/(["'])(\\?.)*?\1/)[0]
+  console.log(value)
 
+  const message = `Duplicate field value: ${value}. Please use another value!`
+  return new AppError(message, 400)
+}
+
+const handleValidationErrorDB = err => {
+  const errors = Object.values(err.errors).map(el => el.message)
+
+  const message = `Invalid input data. ${errors.join('. ')}`
+  return new AppError(message, 400)
+}
 
 const sendErrorDev = (err, res) => {
->>>>>>> 72f0f15a1d32cc8f930309915ce969d526ec5d08
   res.status(err.statusCode).json({
     status: err.status,
     error: err,
@@ -24,37 +31,25 @@ const sendErrorDev = (err, res) => {
 }
 
 const sendErrorProd = (err, res) => {
+  // Operational, trusted error: send message to client
   if (err.operational) {
     res.status(err.statusCode).json({
       status: err.status,
       message: err.message
     })
-  // Programming or other unknown error: don't leak error details
+    // Programming or other unknown error: don't leak error details
   } else {
-    console.log('ERROR', err)
+    console.log('ERROR  💣🔥 ', err)
     res.status(500).json({
       status: 'error',
-      message: 'Somthing went very wrong'
+      message: 'Somthing went very wrong 💣🔥 '
     })
   }
 }
 
 module.exports = (err, req, res, next) => {
-<<<<<<< HEAD
-  console.log('GLOBAL HANDLER')
-
   // console.log(err.stack)
 
-  err.statusCode = err.statusCode || 500
-  err.status = err.status || 'error'
-
-  if ( process.env.NODE_ENV === 'development') {
-    console.log('DEV')
-    sendErrorDev(err, res)
-  } else if ( process.env.NODE_ENV === 'production') {
-    let error = { ...err }
-    if (err.name === 'CastError') error = handleCastErrorDB(error)
-=======
   err.statusCode = err.statusCode || 500
   err.status = err.status || 'error'
 
@@ -63,8 +58,10 @@ module.exports = (err, req, res, next) => {
   } else if (process.env.NODE_ENV === 'production') {
     let error = { ...err }
 
-    // if (error.name === 'ValidationError') error = validationErrorDB(error)
->>>>>>> 72f0f15a1d32cc8f930309915ce969d526ec5d08
+    if (error.name === 'CastError') error = handleCastErrorDB(error)
+    if (error.code === 11000) error = handleDuplicateFieldsDB(error)
+    if (error.name === 'ValidationError') error = handleValidationErrorDB(error)
+
     sendErrorProd(error, res)
   }
 }
