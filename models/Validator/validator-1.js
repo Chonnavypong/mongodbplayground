@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const AppError = require('../../utils/appError')
 
 const baseOptions = {
   timestamps: true,
@@ -33,4 +34,14 @@ schema.post('save', function() {
   console.log('this gets printed fourth')
 })
 */
+
+schema.pre('validate', function(next){
+  if (this.validator_seq > 3){
+    const err = new AppError('ERROR FROM PRE VALIDATE', 400)
+    next(err)
+  } else {
+    next()
+  }
+})
+
 module.exports = mongoose.model('Validator1', schema)
