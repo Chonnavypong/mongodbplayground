@@ -30,7 +30,8 @@ const schema = new mongoose.Schema(
       default: '0000'
     },
     category_seq: {
-      type: Number
+      type: Number,
+      max: [99, 'category have limit at 99']
     }
   },
   baseOptions
@@ -42,6 +43,11 @@ schema.virtual('parentCategory', {
   ref: 'Category',
   foreignField: 'parent',
   localField: '_id'
+})
+
+schema.pre('validate', function(next) {
+  console.log('PRE VALIDATE : -> ',this.category_seq)
+  next()
 })
 
 // Populate เอาค่าของ Parent ออกมา ก่อน SAVE data

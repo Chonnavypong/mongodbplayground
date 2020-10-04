@@ -1,4 +1,5 @@
 const CategoryModel = require('../../models/Category/baseCategory.discreminator')
+const AppError = require('../../utils/appError')
 
 exports.test = (req, res) => {
   try {
@@ -43,25 +44,33 @@ exports.createOne = async (req, res, next) => {
       doc
     })
   */
+    const inDoc = await CategoryModel.find({
+      category_seq: { $eq: 99 }
+    })
 
-    const doc = await CategoryModel.create({ name, parent })
-    // eslint-disable-next-line no-console
-    console.log('CHECK DOC FROM CONTROLLER : ', doc)
-    // eslint-disable-next-line no-unused-vars
-    doc.setNext('category_counter', (err, data) => {
-      if (!err) {
-        res.status(201).json({
-          status: 'success',
-          doc
-        })
-      }
-    })
+    console.log('IN DOC : -> ', inDoc)
+
+    if (inDoc.length > 0) {
+      const err = new AppError('Over limit', 400)
+      return next(err)
+    } else {
+      const doc = await CategoryModel.create({ name, parent })
+      // eslint-disable-next-line no-console
+      console.log('CHECK DOC FROM CONTROLLER : ', doc)
+      // eslint-disable-next-line no-unused-vars
+      doc.setNext('category_counter', (err, data) => {
+        if (!err) {
+          res.status(201).json({
+            status: 'success',
+            doc
+          })
+        } else {
+          next()
+        }
+      })
+    }
   } catch (error) {
-    res.json({
-      status: 'error',
-      code: error.code,
-      message: error.message
-    })
+    next(error)
   }
 }
 

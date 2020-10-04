@@ -23,7 +23,9 @@ const CatchAsync = require('../../utils/catchAsync')
 
 exports.createOne = async (req, res, next) => {
   try {
+    console.log('Point A')
     const doc = await Model.create(req.body)
+    console.log('Point B')
     res.status(201).json({
       status: 'success',
       length: doc.length,
