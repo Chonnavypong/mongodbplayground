@@ -45,30 +45,30 @@ exports.createOne = async (req, res, next) => {
     })
   */
     const inDoc = await CategoryModel.find({
-      category_seq: { $eq: 99 }
+      category_seq: { $gt: 99 }
     })
 
+    // eslint-disable-next-line no-console
     console.log('IN DOC : -> ', inDoc)
 
     if (inDoc.length > 0) {
       const err = new AppError('Over limit', 400)
       return next(err)
-    } else {
-      const doc = await CategoryModel.create({ name, parent })
-      // eslint-disable-next-line no-console
-      console.log('CHECK DOC FROM CONTROLLER : ', doc)
-      // eslint-disable-next-line no-unused-vars
-      doc.setNext('category_counter', (err, data) => {
-        if (!err) {
-          res.status(201).json({
-            status: 'success',
-            doc
-          })
-        } else {
-          next()
-        }
-      })
     }
+    const doc = await CategoryModel.create({ name, parent })
+    // eslint-disable-next-line no-console
+    console.log('CHECK DOC FROM CONTROLLER : ', doc)
+    // eslint-disable-next-line no-unused-vars
+    doc.setNext('category_counter', (err, data) => {
+      if (!err) {
+        res.status(201).json({
+          status: 'success',
+          doc
+        })
+      } else {
+        next()
+      }
+    })
   } catch (error) {
     next(error)
   }
