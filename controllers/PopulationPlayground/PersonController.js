@@ -37,6 +37,7 @@ exports.getAll = async (req, res, next) => {
 
 exports.getOne = async (req, res, next) => {
   try {
+    // eslint-disable-next-line no-console
     console.log(req.query)
     const doc = await await Person.findOne(req.query).populate({
       path: 'stories'

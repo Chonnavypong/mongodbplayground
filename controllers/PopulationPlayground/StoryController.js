@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const StoryModel = require('../../models/PopulationPlayground/Story')
 
 exports.test = (req, res) => {
@@ -44,9 +46,13 @@ exports.getAll = async (req, res, next) => {
         options: { limit: 5 }
         // perDocumentLimit:
       })
+
     console.log(doc[0].title, doc[0].fans.length)
+
     console.log(doc[1].title, doc[1].fans.length)
+
     console.log(doc[2].title, doc[2].fans.length)
+
     console.log(doc[3].title, doc[3].fans.length)
     /* .populate({
       path: 'author fans',

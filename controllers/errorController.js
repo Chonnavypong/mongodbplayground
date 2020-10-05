@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const AppError = require('../utils/appError')
 // สร้าง error middleware ใช้สำหรับ error อื่นๆ ที่ไม่ใช้ operation error
 

@@ -23,6 +23,7 @@ exports.getAll = async (req, res, next) => {
       path: 'comments',
       select: 'body'
     })
+    // eslint-disable-next-line no-console
     console.log(doc[0].refModel)
     res.status(201).json({
       status: 'success',

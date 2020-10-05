@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const Model = require('../../models/Validator/validator-1')
 const CatchAsync = require('../../utils/catchAsync')
 

@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 const mongoose = require('mongoose')
 const AutoIncrement = require('mongoose-sequence')(mongoose)
 
@@ -46,7 +48,7 @@ schema.virtual('parentCategory', {
 })
 
 schema.pre('validate', function(next) {
-  console.log('PRE VALIDATE : -> ',this.category_seq)
+  console.log('PRE VALIDATE : -> ', this.category_seq)
   next()
 })
 
