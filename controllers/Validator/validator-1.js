@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-const Model = require('../../models/Validator/validator-1')
+const Model = require('../../models/validator/validator-1')
 const CatchAsync = require('../../utils/catchAsync')
 
 // exports.createOne = async (req, res, next) => {
