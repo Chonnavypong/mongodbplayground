@@ -125,14 +125,14 @@ schema.post('remove', function(doc){
 })
 */
 
-// Error Hanling Middleware
-schema.post('save', function(error, doc, next) {
-  if (error.name === 'MongoError' && error.code === 11000) {
-    next(new Error('There was duplicate key error'))
-  } else {
-    next()
-  }
-})
+// // Error Hanling Middleware
+// schema.post('save', function(error, doc, next) {
+//   if (error.name === 'MongoError' && error.code === 11000) {
+//     next(new Error('There was duplicate key error'))
+//   } else {
+//     next()
+//   }
+// })
 
 schema.plugin(AutoIncrement, {
   id: 'category_counter',
