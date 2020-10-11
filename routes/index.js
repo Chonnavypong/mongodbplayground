@@ -50,6 +50,7 @@ router.use('/connection/weather', require('./Dataset/training/weather'))
 
 // Validator
 router.use('/validator/validator_1', require('./Validator/validator_1'))
+router.use('/validator/validator_2', require('./Validator/validator_2'))
 
 router.use('/inhabitant', require('./inhibitantRoute'))
 

@@ -37,7 +37,7 @@ schema.post('save', function() {
 
 schema.pre('validate', function(next){
   if (this.validator_seq > 3){
-    const err = new AppError('ERROR FROM PRE VALIDATE', 400)
+    const err = new AppError('ERROR FROM PRE VALIDATE validator-1', 400)
     next(err)
   } else {
     next()
