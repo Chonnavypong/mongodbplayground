@@ -21,30 +21,49 @@ const CatchAsync = require('../../utils/catchAsync')
 //     })
 //   }
 // }
+// Below createOne is finished. It can throw validation error message already.
+// exports.createOne = async (req, res, next) => {
+//   try {
+//     console.log('Point A')
+//     const doc = await Model.create(req.body)
+//     doc.setNext('validator_2_counter', (err, data) => {
+//       console.log('Point B data ----->', data)
+//       console.log('Point B err ----->', err.name)
+//       if (!err) {
+//         res.status(201).json({
+//           status: 'success',
+//           doc
+//         })
+//       // } else if (err.name === 'ValidationError') {
+//       } else if (err) {
+//         console.log('Point C')
+//         next(err)
+//       }
+//     })
+//   } catch (err) {
+//     console.log('Point D')
+//     next(err)
+//   }
+// }
 
-exports.createOne = async (req, res, next) => {
-  try {
-    console.log('Point A')
-    const doc = await Model.create(req.body)
-    doc.setNext('validator_2_counter', (err, data) => {
-      console.log('Point B data ----->', data)
-      console.log('Point B err ----->', err.name)
-      if (!err) {
-        res.status(201).json({
-          status: 'success',
-          doc
-        })
+exports.createOne = CatchAsync(async (req, res, next) => {
+  console.log('Point A')
+  const doc = await Model.create(req.body)
+  doc.setNext('validator_2_counter', (err, data) => {
+    console.log('Point B data ----->', data)
+    // console.log('Point B err ----->', err.name)
+    if (!err) {
+      res.status(201).json({
+        status: 'success',
+        doc
+      })
       // } else if (err.name === 'ValidationError') {
-      } else if (err) {
-        console.log('Point C')
-        next(err)
-      }
-    })
-  } catch (err) {
-    console.log('Point D')
-    next(err)
-  }
-}
+    } else if (err) {
+      console.log('Point C')
+      next(err)
+    }
+  })
+})
 
 exports.getAll = CatchAsync(async (req, res, next) => {
   const doc = await Model.find().limit(10)
