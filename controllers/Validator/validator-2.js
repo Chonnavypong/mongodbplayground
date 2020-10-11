@@ -26,12 +26,22 @@ exports.createOne = async (req, res, next) => {
   try {
     console.log('Point A')
     const doc = await Model.create(req.body)
-    console.log('Point B')
-    res.status(201).json({
-      status: 'success',
-      doc
+    doc.setNext('validator_2_counter', (err, data) => {
+      console.log('Point B data ----->', data)
+      console.log('Point B err ----->', err.name)
+      if (!err) {
+        res.status(201).json({
+          status: 'success',
+          doc
+        })
+      // } else if (err.name === 'ValidationError') {
+      } else if (err) {
+        console.log('Point C')
+        next(err)
+      }
     })
   } catch (err) {
+    console.log('Point D')
     next(err)
   }
 }

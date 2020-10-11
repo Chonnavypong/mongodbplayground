@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const AutoIncrement = require('mongoose-sequence')(mongoose)
 const AppError = require('../../utils/appError')
 
 const baseOptions = {
@@ -9,6 +10,7 @@ const baseOptions = {
 
 const schema = new mongoose.Schema(
   {
+    name: String,
     validator_seq: {
       type: Number,
       min: 1,
@@ -27,5 +29,11 @@ const schema = new mongoose.Schema(
 //     next()
 //   }
 // })
+
+schema.plugin(AutoIncrement, {
+  id: 'validator_2_counter',
+  inc_field: 'validator_seq',
+  disable_hooks: true
+})
 
 module.exports = mongoose.model('Validator2', schema)
