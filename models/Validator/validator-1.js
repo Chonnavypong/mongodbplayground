@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const AppError = require('../../utils/appError')
+const AutoIncrement = require('mongoose-sequence')(mongoose)
+
 
 const baseOptions = {
   timestamps: true,
@@ -9,10 +11,12 @@ const baseOptions = {
 
 const schema = new mongoose.Schema(
   {
+    name: {
+      type: String
+    },
     validator_seq: {
       type: Number,
-      min: 1,
-      max: [3, 'MAX Value must less than or equal 3']
+      max: [3, 'category have limit at 3']
     }
   },
   baseOptions
@@ -35,13 +39,27 @@ schema.post('save', function() {
 })
 */
 
-schema.pre('validate', function(next){
-  if (this.validator_seq > 3){
+schema.pre('validate', function(next) {
+  if (this.validator_seq > 3) {
     const err = new AppError('ERROR FROM PRE VALIDATE', 400)
     next(err)
   } else {
     next()
   }
+})
+
+// schema.pre('save', function(next) {
+//   console.log('Pre save', this.validator_seq)
+//   if (this.validator_seq !== undefined) {
+//     next()
+//   }
+//   next()
+// })
+
+schema.plugin(AutoIncrement, {
+  id: 'validator_counter',
+  inc_field: 'validator_seq',
+  disable_hooks: true
 })
 
 module.exports = mongoose.model('Validator1', schema)
