@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
-const AppError = require('../../utils/appError')
 const AutoIncrement = require('mongoose-sequence')(mongoose)
-
+const AppError = require('../../utils/appError')
 
 const baseOptions = {
   timestamps: true,
@@ -39,15 +38,9 @@ schema.post('save', function() {
 })
 */
 
-<<<<<<< HEAD
-schema.pre('validate', function(next) {
-  if (this.validator_seq > 3) {
-    const err = new AppError('ERROR FROM PRE VALIDATE', 400)
-=======
 schema.pre('validate', function(next){
   if (this.validator_seq > 3){
     const err = new AppError('ERROR FROM PRE VALIDATE validator-1', 400)
->>>>>>> 0e5d003f70acea41870cda821d5c078efe1f1b9d
     next(err)
   } else {
     next()

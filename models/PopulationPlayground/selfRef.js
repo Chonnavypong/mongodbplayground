@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const { Schema } = mongoose.Mongoose
+const { Schema } = mongoose
 
 const baseOptions = {
   timestamps: true,
@@ -8,7 +8,7 @@ const baseOptions = {
   toObject: { virtuals: true }
 }
 
-const schema = new mongoose.Schema(
+const schema = new Schema(
   {
     name: {
       type: String,
