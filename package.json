@@ -36,5 +36,13 @@
   },
   "engines": {
     "node": ">=10.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chonnavypong/mongodbplayground.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Chonnavypong/mongodbplayground/issues"
+  },
+  "homepage": "https://github.com/Chonnavypong/mongodbplayground#readme"
 }
