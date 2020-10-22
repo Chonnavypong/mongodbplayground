@@ -6,9 +6,8 @@ const schemaOptions = {
   toJSON: {
     virtuals: true
   },
-  toObject: { virtuals: true },
   discriminatorKey: 'type',
-  collection: 'shape'
+  collection: 'nestedRoute'
 }
 
 const schema = Schema(
@@ -20,4 +19,4 @@ const schema = Schema(
   schemaOptions
 )
 
-module.exports = mongoose.model('Shape', schema)
+module.exports = mongoose.model('NestedRoute', schema)

@@ -49,6 +49,8 @@ router.use(
 // Nested Route
 router.use('/nestedRoute_1', require('./../routes/nestedRoute/nestedRoute1'))
 router.use('/nestedRoute_2', require('./../routes/nestedRoute/nestedRoute2'))
+router.use('/nestedBase', require('./nestedRoute/nestedBase'))
+router.use('/nestedExtend', require('./nestedRoute/nestedExtended'))
 
 // DB Connection playground
 router.use('/connection/weather', require('./Dataset/training/weather'))

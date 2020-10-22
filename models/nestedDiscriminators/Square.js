@@ -8,5 +8,7 @@ const schema = Schema({
 })
 
 schema.path(shape).discriminator('Square', schema)
+// แบบที่ 2
+// shape.discriminator('Square', schema)
 
 module.exports = mongoose.model('Square')
