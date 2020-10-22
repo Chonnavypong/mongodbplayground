@@ -1,12 +1,14 @@
 const express = require('express')
 
 const controllers = require('../../controllers/nestedRoute/nestedExtendedController')
-const routeNestedRoute1 = require('./nestedBase')
+const nestedBase = require('./nestedBase')
 
 const router = express.Router()
 
-router.use('/test', routeNestedRoute1)
-router.use('/test/:p1', routeNestedRoute1)
+// router.use('/test', nestedBase)
+// router.use('/test/:p1', nestedBase)
+
+router.use('/', nestedBase)
 
 router
   .route('/')
