@@ -46,6 +46,10 @@ router.use(
   require('./Dataset/w3resource/restaurants')
 )
 
+// Nested Route
+router.use('/nestedRoute_1', require('./../routes/nestedRoute/nestedRoute1'))
+router.use('/nestedRoute_2', require('./../routes/nestedRoute/nestedRoute2'))
+
 // DB Connection playground
 router.use('/connection/weather', require('./Dataset/training/weather'))
 
