@@ -10,21 +10,26 @@ const schemaOptions = {
   }
 }
 
-const schema = Schema({
-  member: [{
-    name: {
-      type: mongoose.Schema.ObjectId,
-      ref: 'selfRef' 
-    },
-    score: Number
-  }]
-}, schemaOptions)
+const schema = Schema(
+  {
+    member: [
+      {
+        name: {
+          type: mongoose.Schema.ObjectId,
+          ref: 'selfRef'
+        },
+        score: Number
+      }
+    ]
+  },
+  schemaOptions
+)
 
-schema.pre(/^find/, function(next){
- this.populate({
-   path: 'member.name'
- })
- next()
+schema.pre(/^find/, function(next) {
+  this.populate({
+    path: 'member.name'
+  })
+  next()
 })
 
 module.exports = mongoose.model('Arraypopulate', schema)

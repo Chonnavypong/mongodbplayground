@@ -1,4 +1,4 @@
-const Model = require('./../../models/PopulationPlayground/arrayPopulate')
+const Model = require('../../models/PopulationPlayground/arrayPopulate')
 const factory = require('../factoryController')
 
 exports.createOne = factory.createOne(Model)

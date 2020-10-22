@@ -1,4 +1,4 @@
-const { Router } = require('express')
+// const { Router } = require('express')
 const express = require('express')
 
 const router = express.Router()
@@ -59,7 +59,10 @@ router.use('/validator/validator_2', require('./Validator/validator_2'))
 
 // Populate
 router.use('/populate/selfref', require('./populateRoute/selfRefRoute'))
-router.use('/populate/arraypopulate', require('./populateRoute/arrayPopulateRoute'))
+router.use(
+  '/populate/arraypopulate',
+  require('./populateRoute/arrayPopulateRoute')
+)
 
 router.use('/inhabitant', require('./inhibitantRoute'))
 
