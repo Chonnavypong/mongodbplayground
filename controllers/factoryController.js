@@ -2,7 +2,7 @@ const catchAsync = require('../utils/catchAsync')
 const AppError = require('../utils/appError')
 const APIFeatures = require('../utils/apiFeatures')
 
-exports.deleteOne = (Model) =>
+exports.deleteOne = Model =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndDelete(req.params.id)
 
@@ -11,15 +11,15 @@ exports.deleteOne = (Model) =>
     }
     res.status(204).json({
       status: 'success',
-      data: null,
+      data: null
     })
   })
 
-exports.updateOne = (Model) =>
+exports.updateOne = Model =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-      runValidators: true,
+      runValidators: true
     })
 
     if (!doc) {
@@ -29,21 +29,23 @@ exports.updateOne = (Model) =>
     res.status(200).json({
       status: 'success',
       data: {
-        data: doc,
-      },
+        data: doc
+      }
     })
   })
 
 exports.createOne = (Model, Options) =>
   catchAsync(async (req, res, next) => {
-
     if (Options) {
       const { controlledCondition } = Options
       console.log(controlledCondition)
-       const findDoc = await Model.find(controlledCondition)
-       console.log(findDoc)
+      const findDoc = await Model.find(controlledCondition)
+      console.log(findDoc)
       if (findDoc.length > 0) {
-        const err = new AppError('Category has reach the limit. Please reOranize your category.', 400)
+        const err = new AppError(
+          'Category has reach the limit. Please reOranize your category.',
+          400
+        )
         return next(err)
       }
     }
@@ -51,7 +53,7 @@ exports.createOne = (Model, Options) =>
     const doc = await Model.create(req.body)
     console.log(doc)
 
-    if ( Options ) {
+    if (Options) {
       const { counterField } = Options
       doc.setNext(counterField, (err, data) => {
         if (!err) {
@@ -61,8 +63,7 @@ exports.createOne = (Model, Options) =>
               data: doc
             }
           })
-        }
-        else if (err) {
+        } else if (err) {
           console.log(err)
           const newErr = new AppError('Auto Increment Field has failed', 400)
           next(newErr)
@@ -96,12 +97,12 @@ exports.getOne = (Model, popOptions) =>
     res.status(200).json({
       status: 'success',
       data: {
-        data: doc,
-      },
+        data: doc
+      }
     })
   })
 
-exports.getAll = (Model) =>
+exports.getAll = Model =>
   catchAsync(async (req, res, next) => {
     // To allow for nested GET reviews on tour (hack)
     let filter = {}
@@ -121,7 +122,28 @@ exports.getAll = (Model) =>
       status: 'success',
       results: doc.length,
       data: {
-        data: doc,
-      },
+        data: doc
+      }
     })
   })
+
+exports.nestedCreateOne = (Model, req, res, next) => {
+  console.log('In Nested Create One', Model)
+  return async (req, res, next) => {
+    try {
+      console.log('Hello')
+      console.log(req.originalUrl)
+      console.log('Model is ', Model)
+      const doc = await Model.create(req.body)
+      next()
+      // res.status(200).json({
+      //   status: 'success',
+      //   // url: req.originalUrl,
+      //   // params: req.params,
+      //   doc
+      // })
+    } catch (error) {
+      next(error)
+    }
+  }
+}
