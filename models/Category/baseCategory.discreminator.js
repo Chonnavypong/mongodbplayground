@@ -20,9 +20,9 @@ const schema = new mongoose.Schema(
       require: true
     },
     parent: {
-      // type: mongoose.Schema.ObjectId,
+      type: mongoose.Schema.ObjectId,
       // ใช้ไม่ได้แบบนี้ ต้องเปลี่ยนเป็น String ถึงจะ populate ค่าของ parent ออกมาได้
-      type: String,
+      // type: String,
       trim: true,
       default: null,
       ref: 'Category'

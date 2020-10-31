@@ -18,7 +18,6 @@ exports.test = (req, res) => {
 
 exports.createOne = async (req, res, next) => {
   try {
-    const { name, parent } = req.body
     /*
 * แบบที่ 1 callback function
     let doc = await CategoryModel.findOne({ name }, async (err, data) => {
@@ -49,26 +48,25 @@ exports.createOne = async (req, res, next) => {
     })
 
     // eslint-disable-next-line no-console
-    console.log('IN DOC : -> ', inDoc)
+    // console.log('IN DOC : -> ', inDoc)
 
     if (inDoc.length > 0) {
       const err = new AppError('Over limit', 400)
       return next(err)
     }
-    const doc = await CategoryModel.create({ name, parent })
-    // eslint-disable-next-line no-console
-    console.log('CHECK DOC FROM CONTROLLER : ', doc)
-    // eslint-disable-next-line no-unused-vars
-    doc.setNext('category_counter', (err, data) => {
-      if (!err) {
-        res.status(201).json({
-          status: 'success',
-          doc
-        })
-      } else {
-        next()
-      }
-    })
+
+    const doc = await CategoryModel.create(req.body)
+
+    for (let i = 0; i < doc.length; i++) {
+      await doc[i].setNext('category_counter', (err, data) => {
+        if (!err && i === doc.length - 1) {
+          res.status(201).json({
+            status: 'success',
+            doc
+          })
+        }
+      })
+    }
   } catch (error) {
     next(error)
   }
@@ -99,6 +97,9 @@ exports.getAll = async (req, res, next) => {
     if (req.query.category_seq === 'undefined')
       req.query.category_seq = undefined
 
+    // const doc = await CategoryModel.find(req.query).populate({
+    //   path: 'parent'
+    // })
     const doc = await CategoryModel.find(req.query).populate({
       path: 'parent',
       select: 'name category_seq'
